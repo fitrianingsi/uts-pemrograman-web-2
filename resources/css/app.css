@@ -23,3 +23,19 @@ body {
 .table th {
     white-space: nowrap;
 }
+
+.card {
+    border-radius: 15px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.form-control {
+    border-radius: 10px;
+}

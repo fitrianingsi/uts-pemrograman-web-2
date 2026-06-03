@@ -18,4 +18,24 @@ class CategoryController extends Controller
 
         return view('categories.index', compact('categories', 'search'));
     }
+
+    public function create()
+{
+    return view('categories.create');
+}
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required',
+        'code' => 'required',
+        'description' => 'required',
+    ]);
+
+    Category::create($validated);
+
+    return redirect()
+        ->route('categories.index')
+        ->with('success', 'Category berhasil ditambahkan');
+}
 }
