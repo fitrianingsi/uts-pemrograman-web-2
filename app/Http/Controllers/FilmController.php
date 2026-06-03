@@ -33,4 +33,29 @@ class FilmController extends Controller
             'categoryId'
         ));
     }
+
+    public function create()
+{
+    $categories = Category::all();
+
+    return view('films.create', compact('categories'));
+}
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'category_id' => 'required',
+        'title' => 'required',
+        'director' => 'required',
+        'release_date' => 'required',
+        'duration' => 'required',
+        'synopsis' => 'required',
+    ]);
+
+    Film::create($validated);
+
+    return redirect()
+        ->route('films.index')
+        ->with('success', 'Film berhasil ditambahkan');
+}
 }
