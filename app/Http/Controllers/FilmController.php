@@ -18,7 +18,7 @@ class FilmController extends Controller
         $films = Film::with('category')
             ->when($search, function ($query) use ($search) {
                 $query->where('title', 'like', "%{$search}%")
-                      ->orWhere('director', 'like', "%{$search}%");
+                    ->orWhere('director', 'like', "%{$search}%");
             })
             ->when($categoryId, function ($query) use ($categoryId) {
                 $query->where('category_id', $categoryId);
@@ -35,13 +35,41 @@ class FilmController extends Controller
     }
 
     public function create()
+    {
+        $categories = Category::all();
+
+        return view('films.create', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'category_id' => 'required',
+            'title' => 'required',
+            'director' => 'required',
+            'release_date' => 'required',
+            'duration' => 'required',
+            'synopsis' => 'required',
+        ]);
+
+        Film::create($validated);
+
+        return redirect()
+            ->route('films.index')
+            ->with('success', 'Film berhasil ditambahkan');
+    }
+
+    public function edit(Film $film)
 {
     $categories = Category::all();
 
-    return view('films.create', compact('categories'));
+    return view('films.edit', compact(
+        'film',
+        'categories'
+    ));
 }
 
-public function store(Request $request)
+public function update(Request $request, Film $film)
 {
     $validated = $request->validate([
         'category_id' => 'required',
@@ -52,10 +80,10 @@ public function store(Request $request)
         'synopsis' => 'required',
     ]);
 
-    Film::create($validated);
+    $film->update($validated);
 
     return redirect()
         ->route('films.index')
-        ->with('success', 'Film berhasil ditambahkan');
+        ->with('success', 'Film berhasil diubah');
 }
 }
