@@ -58,4 +58,15 @@ class CategoryController extends Controller
             ->route('categories.index')
             ->with('success', 'Category berhasil diubah');
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category berhasil dihapus');
+    }
+
+    
 }
