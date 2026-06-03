@@ -9,3 +9,17 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+body {
+    background: #f5f7fb;
+}
+
+.card {
+    border-radius: 18px;
+}
+
+.table th {
+    white-space: nowrap;
+}
