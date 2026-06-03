@@ -35,6 +35,7 @@
                                 <th>Nama</th>
                                 <th>Kode</th>
                                 <th>Deskripsi</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,6 +45,12 @@
                                     <td class="fw-semibold">{{ $category->name }}</td>
                                     <td>{{ $category->code }}</td>
                                     <td>{{ $category->description }}</td>
+                                    <td>
+                                        <a href="{{ route('categories.edit', $category->id) }}"
+                                            class="btn btn-warning btn-sm">
+                                            Edit
+                                        </a>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

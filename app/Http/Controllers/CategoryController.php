@@ -13,29 +13,49 @@ class CategoryController extends Controller
 
         $categories = Category::when($search, function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('code', 'like', "%{$search}%");
+                ->orWhere('code', 'like', "%{$search}%");
         })->latest()->paginate(5);
 
         return view('categories.index', compact('categories', 'search'));
     }
 
     public function create()
-{
-    return view('categories.create');
-}
+    {
+        return view('categories.create');
+    }
 
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required',
-        'code' => 'required',
-        'description' => 'required',
-    ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'description' => 'required',
+        ]);
 
-    Category::create($validated);
+        Category::create($validated);
 
-    return redirect()
-        ->route('categories.index')
-        ->with('success', 'Category berhasil ditambahkan');
-}
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category berhasil ditambahkan');
+    }
+
+    public function edit(Category $category)
+    {
+        return view('categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'description' => 'required',
+        ]);
+
+        $category->update($validated);
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category berhasil diubah');
+    }
 }
