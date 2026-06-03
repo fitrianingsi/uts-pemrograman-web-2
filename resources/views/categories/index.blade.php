@@ -47,26 +47,22 @@
                                     <td>{{ $category->description }}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-
                                             <a href="{{ route('categories.edit', $category->id) }}"
                                                 class="btn btn-warning btn-sm">
                                                 Edit
                                             </a>
 
+                                            <a href="{{ route('categories.show', $category->id) }}"
+                                                class="btn btn-info btn-sm text-white">
+                                                Detail
+                                            </a>
+                                            
                                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
-
                                                 @csrf
                                                 @method('DELETE')
-
                                                 <button onclick="return confirm('Yakin ingin menghapus category ini?')"
-                                                    class="btn btn-danger btn-sm">
-
-                                                    Hapus
-
-                                                </button>
-
+                                                    class="btn btn-danger btn-sm">Hapus</button>
                                             </form>
-
                                         </div>
                                     </td>
                                 </tr>
